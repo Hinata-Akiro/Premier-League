@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      MONGODB_URI: "mongodb+srv://victorbarny4:Yungvicky007@cluster0.62hifgz.mongodb.net/your-database-name"
+      REDIS_HOST: "redis"
+    depends_on:
+      - redis
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"

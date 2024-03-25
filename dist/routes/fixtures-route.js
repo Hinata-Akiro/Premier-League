@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const controller_1 = require("../fixtures/controller");
+const validator_1 = require("../utils/validator");
+const auth_1 = require("../middleware/auth");
+const fixtureRouter = (0, express_1.Router)();
+fixtureRouter.get('/', auth_1.authGuard, controller_1.getAllFixtures);
+fixtureRouter.get('/search', controller_1.searchHandler);
+fixtureRouter.get('/:id', auth_1.authGuard, auth_1.adminGuard, controller_1.getOneFixture);
+fixtureRouter.post('/', auth_1.authGuard, auth_1.adminGuard, validator_1.validateFixtures, controller_1.createNewFixture);
+fixtureRouter.put('/:id', auth_1.authGuard, auth_1.adminGuard, controller_1.editFixtureById);
+fixtureRouter.delete('/:id', auth_1.authGuard, auth_1.adminGuard, controller_1.deleteFixtureById);
+fixtureRouter.get('/link/:uniqueLink', auth_1.authGuard, auth_1.adminGuard, controller_1.findFixtureByUniqueLink);
+fixtureRouter.get('/status/:status', auth_1.authGuard, validator_1.validateStatus, controller_1.findFixturesByStatus);
+exports.default = fixtureRouter;

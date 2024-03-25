@@ -1,0 +1,6 @@
+export enum FixtureEnum {
+    COMPLETED = "COMPLETED",
+    IN_PROGRESS = "IN_PROGRESS",
+    PENDING = "PENDING",
+    POSTPONED = "POSTPONED"
+}
