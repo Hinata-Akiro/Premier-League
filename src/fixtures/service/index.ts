@@ -20,12 +20,12 @@ const createFixture = async ({ homeTeam, awayTeam, ...createFixture }: IFixtures
       "Away team not found";
 
 
-  if (!existingHomeTeam || !existingAwayTeam) {
-  return {
-   code: 400,
-   message: errorMessage,
-   };
-}
+     if (!existingHomeTeam || !existingAwayTeam) {
+       return {
+        code: 400,
+        msg: errorMessage,
+     };
+    }
     
 
   const newFixture = await Fixtures.create({

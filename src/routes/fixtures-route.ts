@@ -6,7 +6,7 @@ import { authGuard, adminGuard } from "../middleware/auth";
 const fixtureRouter = Router();
 
 
-fixtureRouter.get('/', authGuard,getAllFixtures);
+fixtureRouter.get('/', authGuard,adminGuard,getAllFixtures);
 
 fixtureRouter.get('/search',searchHandler);
 

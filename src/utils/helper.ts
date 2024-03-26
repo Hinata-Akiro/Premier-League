@@ -57,4 +57,4 @@ const accessToken = (tokenheader: string | undefined): any => {
 
 
 
-export { hashPassword, comparePassword, createToken, accessToken };
+export { hashPassword, comparePassword, createToken, accessToken , verifyToken};

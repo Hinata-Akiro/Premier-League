@@ -159,7 +159,7 @@ describe("deleteTeamById", () => {
         expect(body).toHaveProperty("error")
     });
 
-    it("should return 403 if team deletion operation fails", async () => {
+    it("should return 404 if team deletion operation fails", async () => {
         const validTeamId = team?._id; 
         const url = `/api/v1/teams/${validTeamId}/delete`;
 
@@ -168,7 +168,7 @@ describe("deleteTeamById", () => {
         const { body } = await api
             .delete(url)
             .set("Authorization", `Bearer ${userToken}`)
-            .expect(403);
+            .expect(404);
 
         expect(body).toHaveProperty("error")
     });

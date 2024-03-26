@@ -8,8 +8,8 @@ const teamRouter = Router();
 teamRouter.post("/create-new-team",authGuard,adminGuard, validateTeam ,createNewTeam);
 teamRouter.delete("/:id/delete",authGuard,adminGuard, deleteTeamById)
 teamRouter.put("/:id/update", authGuard,adminGuard,updateTeamById)
-teamRouter.get("/:id", getOneTeam)
-teamRouter.get("/", getAllTeams)
+teamRouter.get("/:id",authGuard,adminGuard, getOneTeam)
+teamRouter.get("/",authGuard,adminGuard, getAllTeams)
 
 
 

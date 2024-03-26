@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import { setToCache } from '../middleware/caching-middleware';
 
-type DocumentModel<T> = {
+export type DocumentModel<T> = {
     create(data: T): Promise<T>;
     findOneAndUpdate(query: any, update: any): Promise<T>;
     deleteOne(query: any): Promise<any>;
@@ -20,6 +20,7 @@ const editDocument = <T>(Model: DocumentModel<T>) => async (data: T & { id: stri
 const deleteDocument = <T>(Model: DocumentModel<T>) => async (id: string) => {
     return Model.deleteOne({ _id: id });
 };
+
 
 const fetchOne = <T>(fn: (id: string) => Promise<T>) => async (req: Request, res: Response, next: NextFunction) => {
     try {

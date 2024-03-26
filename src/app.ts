@@ -5,10 +5,11 @@ import { errorHandler, errorLogger, invalidUrl } from './middleware/error-middle
 import helmet from 'helmet';
 import { CustomRequest } from './utils/custome-response';
 import session from 'express-session';
-import RedisStore from "connect-redis";
 import config from './config/varibales';
-import { client, redisConnect } from './cache/redis';
+import { client as redisClient, redisConnect } from './cache/redis';
 import {cachingMiddleware} from './middleware/caching-middleware';
+import connectRedis from "connect-redis";
+import Redis from 'ioredis';
 
 const app: Express = express();
 
@@ -18,25 +19,28 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
+    windowMs: 15 * 60 * 1000, 
+    max: 100,
     message: "Too many requests from this IP address, please try again later"
 }));
 
 // Create Redis client
+
 (async () => {
     await redisConnect(); 
 
-    // const redisStore = new RedisStore({ client: client });
-   
+    // const RedisClient = new Redis();
+    // const RedisStore = connectRedis( session );
     app.use(
         session({
-            // store:redisStore,
+            // store:new RedisStore({ client: RedisClient}),
+            name: 'quid',
             secret: config.sessionSecret,
             resave: false,
             saveUninitialized: false,
             cookie: {
                 secure: false,
+                httpOnly: true,
                 maxAge: 1000 * 60 * 60 * 24,
             },
         })
@@ -62,12 +66,5 @@ app.use(invalidUrl);
 app.use(errorLogger);
 app.use(errorHandler);
 
-app.use((req: Request, res: Response) => {
-    res.status(404).send({
-        status: "error",
-        message: "Route not found, kindly check the URL",
-        error: "Not found",
-    });
-});
 
 export default app;

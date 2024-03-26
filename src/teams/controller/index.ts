@@ -39,7 +39,7 @@ const deleteTeamById = async (req: Request, res: Response, next: NextFunction) =
         if (response.acknowledged && response.deletedCount) {
             return res.status(200).json({ code: 200, msg: "Successfully deleted" });
         } else {
-            return next({ code: 403, msg: 'We could not perform the delete operation on the selected Team at the moment, please try again later' });
+            return next({ code: 404, msg: 'Team id not found' });
         }
     } catch (error) {
         return next({ code: 500, msg: 'internal server error, please try again later' });
@@ -56,7 +56,7 @@ const updateTeamById = async (req: Request, res: Response, next: NextFunction) =
         if (response.acknowledged && response.modifiedCount) {
             return res.status(200).json({ code: 200, msg: "Successfully updated" });
         } else {
-            return next({ code: 403, msg: 'We could not perform the update operation on the selected Team at the moment, please try again later' });
+            return next({ code: 404, msg: 'Team id not found' });
         }
     } catch (error) {
         return next({ code: 500, msg: 'internal server error, please try again later' });
