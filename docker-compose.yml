@@ -6,8 +6,8 @@ services:
     ports:
       - "4000:4000"
     environment:
-      MONGODB_URI: "mongodb+srv://victorbarny4:Yungvicky007@cluster0.62hifgz.mongodb.net/your-database-name"
-      REDIS_HOST: "redis"
+      MONGO_URI: "mongodb+srv://victorbarny4:Yungvicky007@cluster0.62hifgz.mongodb.net/"
+      redisURL: "redis://red-co18cita73kc73f4ck40:6379"
     depends_on:
       - redis
 
